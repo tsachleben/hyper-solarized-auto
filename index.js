@@ -1,21 +1,21 @@
 'use strict'
 
-console.log("module init")
-const {exec} = require('child_process')
+console.log('module init')
+const { exec } = require('child_process')
 exec('terminal-notifier -title "Test" -message "decorateConfig called"')
 const defaults = require('osx-defaults')
-console.log("imports complete")
+console.log('imports complete')
 
 const bgColorDark = '#002b36'
 const bgColorLight = '#fdf6e3'
+const cursorColor = 'rgba(181, 137, 0, 0.6)'
 const defaultDarkNavColor = '#001f27'
 const defaultLightNavColor = '#e6dfcb'
-const defaultCursorColor = 'rgba(181, 137, 0, 0.6)'
 
 const colors = {
   black: '#073642',
   red: '#dc322f',
-  green: '#859900'
+  green: '#859900',
   yellow: '#b58900',
   blue: '#268bd2',
   magenta: '#d33682',
@@ -29,17 +29,16 @@ const colors = {
   lightBlue: '#839496',
   lightMagenta: '#6c71c4',
   lightCyan: '#93a1a1',
-  lightWhite: '#fdf6e3',
+  lightWhite: '#fdf6e3'
 }
 
-
-function render(config, foregroundColor, backgroundColor, navBackgroundColor, inactiveTabBackground) {
+function render (config, foregroundColor, backgroundColor, navBackgroundColor, inactiveTabBackground) {
   return Object.assign({}, config, {
     foregroundColor,
     backgroundColor,
-    borderColor,
+    borderColor: 'transparent' || config.borderColor,
     colors,
-    cursorColor: config.cursorColor || defaultCursorColor,
+    cursorColor: config.cursorColor || cursorColor,
     css: `${config.css || ''}
       * {
         text-rendering: optimizeLegibility;
@@ -71,24 +70,26 @@ function render(config, foregroundColor, backgroundColor, navBackgroundColor, in
   })
 }
 
-function renderSolarizedLight(config) {
+function renderSolarizedLight (config) {
   const foregroundColor = colors.lightBlue
-  const backgroundColor = navBackgroundColor = bgColorLight
+  const backgroundColor = bgColorLight
+  const navBackgroundColor = bgColorLight
   const inactiveTabBackground = defaultLightNavColor
   return render(config, foregroundColor, backgroundColor, navBackgroundColor, inactiveTabBackground)
 }
 
-function renderSolarizedDark(config) {
+function renderSolarizedDark (config) {
   const foregroundColor = colors.lightBlue
-  const backgroundColor = navBackgroundColor = bgColorDark
+  const backgroundColor = bgColorDark
+  const navBackgroundColor = bgColorDark
   const inactiveTabBackground = defaultDarkNavColor
   return render(config, foregroundColor, backgroundColor, navBackgroundColor, inactiveTabBackground)
 }
 
 exports.decorateConfig = (config) => {
-  console.log("decorateConfig called")
+  console.log('decorateConfig called')
   exec('terminal-notifier -title "Test" -message "decorateConfig called"')
-  if (defaults.read('NSGlobalDomain', 'AppleInterfaceStyle') === "Dark") {
+  if (defaults.read('NSGlobalDomain', 'AppleInterfaceStyle') === 'Dark') {
     return renderSolarizedDark(config)
   } else {
     return renderSolarizedLight(config)
