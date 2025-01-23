@@ -1,6 +1,6 @@
 {
   "name": "hyper-solarized-auto",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Hyper theme using the Solarized colors pulling from OS X defaults",
   "main": "index.js",
   "keywords": [

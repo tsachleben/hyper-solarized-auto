@@ -30,9 +30,16 @@ const colors = {
 }
 
 async function getMode () {
-  return (await exec('defaults read -g AppleInterfaceStyle', {})\
-               .then(({ stdout, stderr }) => { return stdout.trim() })\
-               .catch((err) => { return '' }))
+  return exec('defaults read -g AppleInterfaceStyle', {}).then(
+    ({ stdout, stderr }) => {
+      return stdout.trim()
+    }
+  ).catch(
+    (err) => {
+      console.log(err)
+      return ''
+    }
+  )
 }
 
 function render (config, foregroundColor, backgroundColor, navBackgroundColor, inactiveTabBackground) {
