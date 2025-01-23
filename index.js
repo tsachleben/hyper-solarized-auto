@@ -1,7 +1,7 @@
 'use strict'
 
-console.log('module init')
-const defaults = require('osx-defaults')
+const util = require('util')
+const exec = util.promisify(require('child_process').exec)
 
 const bgColorDark = '#002b36'
 const bgColorLight = '#fdf6e3'
@@ -27,6 +27,12 @@ const colors = {
   lightMagenta: '#6c71c4',
   lightCyan: '#93a1a1',
   lightWhite: '#fdf6e3'
+}
+
+async function getMode () {
+  return (await exec('defaults read -g AppleInterfaceStyle', {})\
+               .then(({ stdout, stderr }) => { return stdout.trim() })\
+               .catch((err) => { return '' }))
 }
 
 function render (config, foregroundColor, backgroundColor, navBackgroundColor, inactiveTabBackground) {
@@ -84,8 +90,7 @@ function renderSolarizedDark (config) {
 }
 
 exports.decorateConfig = (config) => {
-  console.log('decorateConfig called')
-  if (defaults.read('NSGlobalDomain', 'AppleInterfaceStyle') === 'Dark') {
+  if (getMode() === 'Dark') {
     return renderSolarizedDark(config)
   } else {
     return renderSolarizedLight(config)
