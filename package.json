@@ -1,0 +1,32 @@
+{
+  "name": "hyper-solarized-auto",
+  "version": "0.0.1",
+  "description": "Hyper theme using the Solarized colors pulling from OS X defaults",
+  "main": "index.js",
+  "keywords": [
+    "hyperterm",
+    "hyperterm-theme",
+    "hyper",
+    "hyper-theme",
+    "colors",
+    "theme",
+    "solarized"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:tsachleben/hyper-solarized-auto.git"
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "osx-defaults": "^1.0.3"
+  }
+}
