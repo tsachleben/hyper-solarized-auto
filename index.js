@@ -1,10 +1,7 @@
 'use strict'
 
 console.log('module init')
-const { exec } = require('child_process')
-exec('terminal-notifier -title "Test" -message "decorateConfig called"')
 const defaults = require('osx-defaults')
-console.log('imports complete')
 
 const bgColorDark = '#002b36'
 const bgColorLight = '#fdf6e3'
@@ -88,7 +85,6 @@ function renderSolarizedDark (config) {
 
 exports.decorateConfig = (config) => {
   console.log('decorateConfig called')
-  exec('terminal-notifier -title "Test" -message "decorateConfig called"')
   if (defaults.read('NSGlobalDomain', 'AppleInterfaceStyle') === 'Dark') {
     return renderSolarizedDark(config)
   } else {
